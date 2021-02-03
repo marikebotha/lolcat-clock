@@ -6,11 +6,10 @@ var wakeupTime = 9; // 9AM
 var lunchTime = 12; // 12PM
 var partyTime = 17; // 5PM
 var napTime = lunchTime + 2; // 2PM
-
 var isPartyTime = false;
-
 var lolcatJS = document.getElementById('lolcat');
 var timeImage = "https://s3.amazonaws.com/media.skillcrush.com/skillcrush/wp-content/uploads/2016/09/cat5.jpg";
+var textByTimeJS = document.getElementById("timeEvent");
 
 var updateDisplay = function(){
 	if (time == partyTime ){
@@ -32,13 +31,12 @@ var updateDisplay = function(){
 	} else {
 		messageText = "Good afternoon!";
 	}
+
+	textByTimeJS.innerText = messageText;
+	lolcatJS.src = timeImage;
+	showTime();
 };
-updateDisplay();
 
-var textByTimeJS = document.getElementById("timeEvent");
-textByTimeJS.innerText = messageText;
-
-lolcatJS.src = timeImage;
 
 var showTime = function(){
 	var compTime = new Date();
@@ -65,11 +63,14 @@ var showTime = function(){
 	clockJS.innerText = readTime;
 };
 
+
 var updateTime = function(){
 	showTime();
 };
 
-setInterval(updateTime, 1000);
+updateDisplay();
+
+setInterval(updateDisplay, 1000);
 
 var partyButton = document.getElementById('partyTimeButton');
 
@@ -77,14 +78,12 @@ var setParty = function(){
 	if(isPartyTime == false){
 		isPartyTime = true;
 		time = partyTime;
-		updateDisplay();
 		partyButton.innerText = "Party Over";
 	}
 	else{
 		isPartyTime = false;
 		time = new Date().getHours();
 		partyButton.innerText = "Party Time!";
-		updateDisplay();
 	}
 };
 
